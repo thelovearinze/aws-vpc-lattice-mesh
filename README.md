@@ -16,7 +16,7 @@ The design intentionally omits NAT Gateways and Internet Gateways to enforce a s
 * AWS CLI configured with appropriate credentials
 * An IAM Principal with permissions to deploy VPCs, EC2, Transit Gateways, VPC Lattice, and `iam:CreateServiceLinkedRole` (required for EICE provisioning).
 
-## Deployment Instructions
+## Deployment Guide
 
 1. **Clone the repository:**
    ```bash
