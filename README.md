@@ -51,6 +51,7 @@ Connect to the eu-west-2 instance via EICE and curl the private IP address of th
     curl http://<virginia-private-ip>
 
  Expected Output:
+ 
     ```bash
     
     <h1>Hello from Primary Hub - us-east-1</h1>
