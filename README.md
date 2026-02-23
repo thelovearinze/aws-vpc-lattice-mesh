@@ -58,6 +58,7 @@ Connect to the eu-west-2 instance via EICE and curl the private IP address of th
 A successful response confirms the packet traversed the London Security Group, routed through the London Transit Gateway, crossed the transatlantic peering connection, routed through the Virginia Transit Gateway, passed the Virginia Security Group ingress rules, and hit the private Python web service.
 
 **Known Terraform Provider Behaviors**
+
 During teardown (terraform destroy), the AWS provider may occasionally time out when deregistering EC2 instances from VPC Lattice Target Groups, throwing a TargetGroupNotInUse error. If the state becomes stuck on UNUSED, you can manually drop the attachments from the local state file and resume destruction:
 
  ```bash
