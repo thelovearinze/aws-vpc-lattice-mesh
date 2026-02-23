@@ -62,6 +62,7 @@ A successful response confirms the packet traversed the London Security Group, r
 During teardown (terraform destroy), the AWS provider may occasionally time out when deregistering EC2 instances from VPC Lattice Target Groups, throwing a TargetGroupNotInUse error. If the state becomes stuck on UNUSED, you can manually drop the attachments from the local state file and resume destruction:
 
  ```bash
+
 terraform state rm aws_vpclattice_target_group_attachment.<name>
 terraform destroy -auto-approve
 
