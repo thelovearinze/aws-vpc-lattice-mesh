@@ -31,30 +31,35 @@ The design intentionally omits NAT Gateways and Internet Gateways to enforce a s
    ```bash
    terraform apply -auto-approve
 
-   Note: Transit Gateway peering and EC2 Instance Connect Endpoints require approximately 5-7 minutes to fully provision.
+Note: Transit Gateway peering and EC2 Instance Connect Endpoints require approximately 5-7 minutes to fully provision.
 
 Validation and Testing (Bypassing NAT Limitations)
 Because the EC2 instances reside in strictly private subnets without outbound internet access, traditional package managers (like yum) cannot reach external repositories. To validate the cross-region mesh without deploying costly NAT Gateways, this deployment utilizes the pre-installed Python 3 module to serve HTTP traffic.
 
 1. Start the local web service (Virginia Primary Hub):
+   
    ```bash
    mkdir -p my-website
    cd my-website
    echo "<h1>Hello from Primary Hub - us-east-1</h1>" > index.html
    sudo python3 -m http.server 80 &
 
-2. Execute cross-continent Layer 3 routing test (London Spoke):
+3. Execute cross-continent Layer 3 routing test (London Spoke):
 Connect to the eu-west-2 instance via EICE and curl the private IP address of the Virginia server (e.g., 172.16.1.x):
+
     ```bash
     curl http://<virginia-private-ip>
 
  Expected Output:
-<h1>Hello from Primary Hub - us-east-1</h1>
+    ```bash
+    
+    <h1>Hello from Primary Hub - us-east-1</h1>
 
 A successful response confirms the packet traversed the London Security Group, routed through the London Transit Gateway, crossed the transatlantic peering connection, routed through the Virginia Transit Gateway, passed the Virginia Security Group ingress rules, and hit the private Python web service.
 
- **Known Terraform Provider Behaviors**
+**Known Terraform Provider Behaviors**
 During teardown (terraform destroy), the AWS provider may occasionally time out when deregistering EC2 instances from VPC Lattice Target Groups, throwing a TargetGroupNotInUse error. If the state becomes stuck on UNUSED, you can manually drop the attachments from the local state file and resume destruction:
+
  ```bash
 terraform state rm aws_vpclattice_target_group_attachment.<name>
 terraform destroy -auto-approve
