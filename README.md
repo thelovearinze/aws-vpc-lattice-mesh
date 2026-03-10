@@ -1,5 +1,7 @@
 # Global Zero-Trust Service Mesh: AWS VPC Lattice & Transit Gateway
 
+Read the full architectural deep dive and troubleshooting breakdown on Medium -https://medium.com/aws-in-plain-english/zero-trust-global-service-mesh-on-aws-f2f89769bd70
+
 ## Architecture Overview
 This repository contains infrastructure-as-code (Terraform) to provision a globally distributed, zero-trust application mesh. The architecture spans three continents (`us-east-1`, `eu-west-2`, `af-south-1`) and bridges modern Layer 7 service discovery (AWS VPC Lattice) with a robust Layer 3 routing backbone (AWS Transit Gateway).
 
